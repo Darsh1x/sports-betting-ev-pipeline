@@ -2,3 +2,4 @@ boto3
 requests
 python-dotenv
 pytest
+snowflake-connector-python
