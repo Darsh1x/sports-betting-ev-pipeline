@@ -19,3 +19,6 @@ airflow/plugins/
 
 # OS
 .DS_Store
+
+# local raw data
+data/
