@@ -10,3 +10,5 @@ models:
   sports_betting:
     staging:
       +materialized: view
+    intermediate:
+      +materialized: view
