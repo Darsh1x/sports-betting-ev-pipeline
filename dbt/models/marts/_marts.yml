@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: fct_ev_opportunities
+    description: Pre-game prices that beat the consensus fair probability by at least the configured EV threshold, one row per snapshot, game, bookmaker, market and outcome.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - fetched_at
+              - event_id
+              - bookmaker_key
+              - market_key
+              - outcome_name
+    columns:
+      - name: expected_value
+        description: Expected profit per $1 staked, using the consensus fair probability (consensus_fair_prob * decimal_odds - 1).
+        data_tests: [not_null]
+      - name: edge
+        description: Consensus fair probability minus the probability implied by this price.
+        data_tests: [not_null]
+      - name: is_best_price
+        description: True when this book offers the highest payout for the outcome in that snapshot.
+        data_tests: [not_null]
+      - name: is_latest_snapshot
+        data_tests: [not_null]
+      - name: book_count
+        data_tests: [not_null]
