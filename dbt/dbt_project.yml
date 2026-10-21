@@ -1,0 +1,12 @@
+name: sports_betting
+version: "1.0.0"
+config-version: 2
+profile: sports_betting
+
+model-paths: ["models"]
+test-paths: ["tests"]
+
+models:
+  sports_betting:
+    staging:
+      +materialized: view

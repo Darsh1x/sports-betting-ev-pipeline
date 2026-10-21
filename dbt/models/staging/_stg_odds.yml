@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: stg_odds
+    description: One row per snapshot, game, bookmaker, market and outcome, flattened from the raw odds JSON.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - fetched_at
+              - event_id
+              - bookmaker_key
+              - market_key
+              - outcome_name
+    columns:
+      - name: fetched_at
+        data_tests: [not_null]
+      - name: event_id
+        data_tests: [not_null]
+      - name: commence_time
+        data_tests: [not_null]
+      - name: bookmaker_key
+        data_tests: [not_null]
+      - name: market_key
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["h2h"]
+      - name: outcome_name
+        data_tests: [not_null]
+      - name: price_american
+        description: American odds, e.g. -110 or +150.
+        data_tests: [not_null]
