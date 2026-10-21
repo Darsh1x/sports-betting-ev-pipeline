@@ -6,7 +6,15 @@ profile: sports_betting
 model-paths: ["models"]
 test-paths: ["tests"]
 
+vars:
+  ev_threshold: 0.02
+  min_books: 5
+
 models:
   sports_betting:
     staging:
       +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table
