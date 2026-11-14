@@ -23,6 +23,8 @@ flowchart LR
     AF -.orchestrates.-> MART
 ```
 
+See [data-flow.md](data-flow.md) for a worked example with real numbers.
+
 Solid arrows are built. Dashed `planned` is not built yet.
 
 ## Layers
@@ -76,7 +78,7 @@ snowflake/    SQL for the raw table, file format, stage and COPY INTO
 dbt/          dbt project: staging, intermediate, marts, tests
 airflow/      Dockerfile and DAGs
 tests/        pytest unit tests for ingestion
-Architecture/ this documentation
+Architecture/ this documentation (architecture.md, data-flow.md)
 ```
 
 ## Branching and release flow
