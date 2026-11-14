@@ -1,0 +1,67 @@
+version: 2
+
+models:
+  - name: int_odds_devigged
+    description: Each bookmaker price converted to implied probability, with the bookmaker's margin (vig) removed to give a fair probability.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - fetched_at
+              - event_id
+              - bookmaker_key
+              - market_key
+              - outcome_name
+    columns:
+      - name: implied_prob
+        description: Break-even probability implied by the American price, including vig.
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+                inclusive: false
+      - name: vig
+        description: Bookmaker margin for the market (sum of implied probabilities minus 1).
+        data_tests:
+          - not_null
+      - name: decimal_odds
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 1
+                inclusive: false
+      - name: fair_prob
+        description: Implied probability rescaled so a bookmaker's outcomes sum to 1.
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+                inclusive: false
+
+  - name: int_consensus_fair_prob
+    description: Average of de-vigged probabilities across bookmakers for each outcome in each snapshot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - fetched_at
+              - event_id
+              - market_key
+              - outcome_name
+    columns:
+      - name: consensus_fair_prob
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+                inclusive: false
+      - name: book_count
+        data_tests:
+          - not_null

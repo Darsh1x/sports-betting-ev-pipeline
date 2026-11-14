@@ -18,6 +18,18 @@ Ingestion (Python) → S3 (raw landing) → Snowflake (warehouse) → dbt (trans
 
 More details to come as each piece is built.
 
+## Running the pipeline
+
+Fill in `.env` (see `.env.example`), then:
+
+```
+docker compose up -d --build
+```
+
+Airflow UI is at http://localhost:8080 (admin / admin, local only). Unpause the
+`odds_pipeline` DAG; it runs every 3 hours: fetch odds, load to Snowflake, then
+`dbt deps`, `dbt run`, `dbt test`.
+
 ## Project structure
 
 ```
