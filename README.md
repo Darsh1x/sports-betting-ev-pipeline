@@ -27,7 +27,7 @@ docker compose up -d --build
 ```
 
 Airflow UI is at http://localhost:8080 (admin / admin, local only). Unpause the
-`odds_pipeline` DAG; it runs every 3 hours: fetch odds, load to Snowflake, then
+`odds_pipeline` DAG; it runs every 6 hours: fetch odds, load to Snowflake, then
 `dbt deps`, `dbt run`, `dbt test`.
 
 ## Project structure
