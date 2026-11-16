@@ -10,8 +10,8 @@ DBT = "/opt/airflow/pipeline-venv/bin/dbt"
 with DAG(
     dag_id="odds_pipeline",
     description="Odds API -> S3 -> Snowflake -> dbt build",
-    # every 3 hours keeps the free Odds API tier (500 credits/month) under budget
-    schedule="0 */3 * * *",
+    # every 6 hours keeps the free Odds API tier (500 credits/month) and Snowflake compute low
+    schedule="0 */6 * * *",
     start_date=datetime(2026, 10, 1),
     catchup=False,
     max_active_runs=1,
