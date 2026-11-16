@@ -54,5 +54,15 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
+  dashboard:
+    build:
+      context: .
+      dockerfile: dashboard/Dockerfile
+    env_file: .env
+    environment:
+      DATA_SOURCE: ${DATA_SOURCE:-sample}
+    ports:
+      - "8501:8501"
+
 volumes:
   postgres-data:

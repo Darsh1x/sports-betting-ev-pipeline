@@ -30,6 +30,12 @@ Airflow UI is at http://localhost:8080 (admin / admin, local only). Unpause the
 `odds_pipeline` DAG; it runs every 3 hours: fetch odds, load to Snowflake, then
 `dbt deps`, `dbt run`, `dbt test`.
 
+## Dashboard
+
+The Streamlit dashboard runs with the rest of the stack at http://localhost:8501.
+It defaults to generated sample data (`dashboard/sample/`). Set
+`DATA_SOURCE=snowflake` in `.env` to read `ANALYTICS.FCT_EV_OPPORTUNITIES` live.
+
 ## Project structure
 
 ```
